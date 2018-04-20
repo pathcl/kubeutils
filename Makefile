@@ -7,6 +7,9 @@
 # KISS
 # 
 install:
+	kubectl create clusterrolebinding bofh --clusterrole=cluster-admin --user=`gcloud auth list --filter=status:ACTIVE --format="value(account)"`
+	kubectl create -f rbac/cluster-reader-role.yaml
+	kubectl create clusterrolebinding default-reader --clusterrole=default-reader --serviceaccount=default:default
 	kubectl create -f prometheus/prometheus-config-map.yaml
 	kubectl create -f prometheus/prometheus-deployment.yaml
 	kubectl create -f prometheus/prometheus-svc.yaml
