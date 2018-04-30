@@ -66,29 +66,28 @@ uninstall: .uninstall
 deps: ## Checks for dependencies
 
 ifndef KUBECTL
-    $(warning "Kubectl not installed!. Installing...")
-	$(shell curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/darwin/amd64/kubectl)
-	$(shell chmod +x ./kubectl)
-	$(shell sudo mv ./kubectl /usr/local/bin/kubectl)
+$(warning "Kubectl not installed!. Installing...")
+$(shell curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/darwin/amd64/kubectl)
+$(shell chmod +x ./kubectl)
+$(shell sudo mv ./kubectl /usr/local/bin/kubectl)
 endif
-	$(info +++ kubectl is already installed. )
+$(info +++ kubectl is already installed. )
 
 ifndef HELM
-    $(warning "Helm not installed!. Installing...")
-	$(shell curl https://raw.githubusercontent.com/kubernetes/helm/master/scripts/get | bash)
+$(warning "Helm not installed!. Installing...")
+$(shell curl https://raw.githubusercontent.com/kubernetes/helm/master/scripts/get | bash)
 endif
-	$(info +++ helm is already installed. )
+$(info +++ helm is already installed. )
 
 
 ifndef SDK
-    $(warning "Google cloud is not installed!. Installing...")
-	$(shell curl https://sdk.cloud.google.com | bash)
-	$(shell exec -l $SHELL)
-	$(gcloud init)
+$(warning "Google cloud is not installed!. Please install it.")
+$(info curl https://sdk.cloud.google.com | bash)
+$(info exec -l $SHELL)
+$(info gcloud init)
 endif
-	$(info +++ gcloud is already installed.)
-	$(info )
-	$(info *** Everything in its right place.)
-	$(info )
+$(info )
+$(info *** Everything in its right place.)
+$(info )
 
 all: deps build ## Setup GKE and Prometheus+Grafana
